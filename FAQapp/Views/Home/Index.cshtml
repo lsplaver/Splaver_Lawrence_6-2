@@ -1,0 +1,44 @@
+﻿@model List<FAQ>
+@{
+    ViewBag.Title = "Frequently Asked Questions";
+}
+
+<div class="container">
+    <table class="table table-bordered">
+        <tbody>
+            @foreach(var faq in Model)
+            {
+                <tr>
+                    <td>
+                        <div class="row">
+                            @if (faq.CategoryId == "hist")
+                            {
+                                <div class="col"><span class="font-weight-bold">When did @faq.Name form? </span> @faq.YearFormed</div>
+                            }
+
+                            @if (faq.CategoryId == "gen")
+                            {
+                                <div class="col"><span class="font-weight-bold">Who is @faq.Name? </span> @faq.Description</div>
+                            }
+
+                            @if (faq.CategoryId == "link")
+                            {
+                                <div class="col-4">@faq.Name</div>
+                                <div class="col-4">
+                                    <a href="@faq.BandWebsite ">@faq.BandWebsite</a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="@faq.SecondLink ">@faq.SecondLink</a>
+                                </div>
+                            }
+                        </div>
+                        <div class="row">
+                            <div class="col-6 align-content-start">Genre: @faq.Genre.Name</div>
+                            <div class="col-6 align-content-end">Category: @faq.Category.Name</div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
