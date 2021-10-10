@@ -58,15 +58,6 @@ namespace FAQapp
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "genre_and_category",
-                    pattern: "{controller}/{action}/genre/{genreId}/category/{catId}");
-                endpoints.MapControllerRoute(
-                    name: "genre",
-                    pattern: "{controller}/{action}/genre/{genreId}");
-                endpoints.MapControllerRoute(
-                    name: "category",
-                    pattern: "{controller}/{action}/category/{catId}");
-                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
