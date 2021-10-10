@@ -64,14 +64,26 @@ namespace FAQapp.Controllers
 
         // [HttpGet("[controller]/[action]/genre/{genreId}/category/{catId}")]
         // [Route("genre-and-category")]
-        [Route("/genre/{genreId?}/category/{catId?}")]
-        [Route("/genre/{genreId?}")]
-        [Route("/catgory/{catId?}")]
+        [Route("/genre/{genreId}/category/{catId}")]
+        [Route("/genre/{genreId}")]
+        [Route("/catgory/{catId}")]
         [Route("/")]
         public IActionResult Index(string genreId = "null", string catId = "null")
         {
+            // else if ((genreId != null) && (catId != null))
+            if (((genreId == "pow-metal") || (genreId == "spd-metal") || (genreId == "sym-metal")) && ((catId == "gen") || (catId == "hist") || (catId == "link")))
+            {
+                var faqs = context.FAQs
+                    .Include(c => c.Category)
+                    .Include(c => c.Genre)
+                    .Where(c => c.GenreId == genreId)
+                    .Where(c => c.CategoryId == catId)
+                    .OrderBy(c => c.Name)
+                    .ToList();
+                return View(faqs);
+            }
             // if ((genreId == null) && (catId != null))
-            if ((catId == "gen") || (catId == "hist") || (catId == "link"))
+            else if ((catId == "gen") || (catId == "hist") || (catId == "link"))
             {
                 var faqs = context.FAQs
                     .Include(c => c.Category)
@@ -88,18 +100,6 @@ namespace FAQapp.Controllers
                     .Include(c => c.Category)
                     .Include(c => c.Genre)
                     .Where(c => c.GenreId == genreId)
-                    .OrderBy(c => c.Name)
-                    .ToList();
-                return View(faqs);
-            }
-            // else if ((genreId != null) && (catId != null))
-            else if (((genreId == "pow-metal") || (genreId == "spd-metal") || (genreId == "sym-metal")) && ((catId == "gen") || (catId == "hist") || (catId == "link")))
-            {
-                var faqs = context.FAQs
-                    .Include(c => c.Category)
-                    .Include(c => c.Genre)
-                    .Where(c => c.GenreId == genreId)
-                    .Where(c => c.CategoryId == catId)
                     .OrderBy(c => c.Name)
                     .ToList();
                 return View(faqs);
